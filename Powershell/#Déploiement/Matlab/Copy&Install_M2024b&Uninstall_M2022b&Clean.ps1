@@ -1,0 +1,105 @@
+# Définir les variables
+$url = "ftp://10.100.1.109:21/payload.zip"
+$destinationFolder = "C:\install"
+$zipFile = "$destinationFolder\payload.zip"
+
+# Créer le dossier de destination s'il n'existe pas déjà
+if (-not (Test-Path -Path $destinationFolder)) {
+    New-Item -ItemType Directory -Path $destinationFolder | Out-Null
+}
+
+# Configuration de la requête FTP
+$ftpRequest = [System.Net.FtpWebRequest]::Create($url)
+$ftpRequest.Method = [System.Net.WebRequestMethods+Ftp]::DownloadFile
+$ftpRequest.UseBinary = $true
+$ftpRequest.UsePassive = $true   # Essayez $false si problème de connexion
+$ftpRequest.KeepAlive = $false
+
+# Décommentez et adaptez si authentification nécessaire :
+# $ftpRequest.Credentials = New-Object System.Net.NetworkCredential("nom_utilisateur", "mot_de_passe")
+
+# Télécharger le fichier ZIP
+try {
+    $response = $ftpRequest.GetResponse()
+    $responseStream = $response.GetResponseStream()
+    $fileStream = [System.IO.File]::Create($zipFile)
+    $buffer = New-Object byte[] 8192
+    do {
+        $read = $responseStream.Read($buffer, 0, $buffer.Length)
+        if ($read -gt 0) {
+            $fileStream.Write($buffer, 0, $read)
+        }
+    } while ($read -gt 0)
+    $fileStream.Close()
+    $responseStream.Close()
+    $response.Close()
+    Write-Host "Téléchargement terminé : $zipFile"
+}
+catch {
+    Write-Error "Erreur lors du téléchargement : $_"
+    exit 1
+}
+
+# Décompresser l'archive ZIP dans le dossier de destination
+try {
+    Expand-Archive -Path $zipFile -DestinationPath $destinationFolder -Force
+    Write-Host "Extraction terminée."
+    Remove-Item -Path $zipFile
+} catch {
+    Write-Error "Erreur lors de l'extraction : $_"
+}
+
+# Installation silencieuse MATLAB 2024b
+
+$setupPath = "C:\install\setup.exe"
+$configPath = "C:\install\installer_input.txt"
+
+# Correction de la condition avec parenthèses autour de chaque Test-Path
+if ((Test-Path $setupPath) -and (Test-Path $configPath)) {
+    # Ajout des guillemets échappés pour les chemins avec espaces
+    Start-Process -FilePath $setupPath -ArgumentList "-inputFile `"$configPath`"" -Wait
+} else {
+    Write-Error "Fichiers d'installation manquants"
+}
+
+# Uninstall Matlab 2022b
+
+$matlabRoot = "C:\Program Files\MATLAB\R2022b"
+$uninstallExe = "$matlabRoot\uninstall\bin\win64\uninstall.exe"
+$tempFolder = "C:\temp"
+$inputFile = "$tempFolder\my_uninstall.txt"
+
+# Créer le dossier temporaire s'il n'existe pas
+if (-not (Test-Path -Path $tempFolder -PathType Container)) {
+    New-Item -Path $tempFolder -ItemType Directory -Force
+}
+
+# Copier le fichier de configuration
+Copy-Item "$matlabRoot\uninstall\uninstaller_input.txt" $inputFile -Force
+
+# Modifier le fichier de configuration
+Set-Content -Path $inputFile -Value @"
+mode=silent
+outputFile=$tempFolder\matlab_uninstall.log
+"@
+
+# Lancer la désinstallation silencieuse
+Start-Process -FilePath $uninstallExe -ArgumentList "-inputFile $inputFile" -Wait
+
+# Nettoyage final
+Start-Sleep -Seconds 5
+if (Test-Path $matlabRoot) {
+    Remove-Item -Path $matlabRoot -Recurse -Force -ErrorAction SilentlyContinue
+}
+
+# Script pour supprimer le dossier C:\install
+$folderPath = "C:\install"
+
+# Vérifie si le dossier existe
+if (Test-Path $folderPath) {
+    # Supprime le dossier et son contenu
+    Remove-Item -Path $folderPath -Recurse -Force
+    Write-Host "Le dossier $folderPath a été supprimé avec succès."
+} else {
+    Write-Host "Le dossier $folderPath n'existe pas."
+}
