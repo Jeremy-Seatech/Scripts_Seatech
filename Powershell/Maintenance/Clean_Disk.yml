@@ -1,0 +1,14 @@
+---
+- name: Exécuter le nettoyage de disque via PowerShell
+  hosts: windows
+  gather_facts: no
+  tasks:
+    - name: Exécuter le nettoyage de disque silencieusement
+      ansible.windows.win_powershell:
+        script: |
+          $cleanmgr = "cleanmgr.exe"
+          $args = "/sagerun:1"
+          
+          Start-Process -FilePath $cleanmgr -ArgumentList $args -WindowStyle Hidden -Wait
+          
+          Write-Host "Le nettoyage de disque a été effectué avec succès."
