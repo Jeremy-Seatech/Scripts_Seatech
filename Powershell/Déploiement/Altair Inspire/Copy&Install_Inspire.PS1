@@ -63,7 +63,7 @@ try {
 ################ Installation silencieuse => EDIT "setup.exe -silent" ################
 
 #EDIT
-c:\install\AltairInspire2025.1_win64.exe -i silent -DACCEPT_EULA=YES DUNINSTALL_EXISTING_INSTALLATION=YES
+c:\install\AltairInspire2025.1_win64.exe -i silent -DACCEPT_EULA=YES -DUNINSTALL_EXISTING_INSTALLATION=YES
 #EDIT
 
 
