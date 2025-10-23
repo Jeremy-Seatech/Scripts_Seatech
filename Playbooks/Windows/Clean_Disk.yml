@@ -1,6 +1,6 @@
 ---
 - name: Exécuter le nettoyage de disque via PowerShell
-  hosts: m011
+  hosts: M011
   gather_facts: no
   tasks:
     - name: Exécuter le nettoyage de disque silencieusement
