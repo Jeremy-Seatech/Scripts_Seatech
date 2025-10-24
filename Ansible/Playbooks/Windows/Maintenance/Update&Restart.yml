@@ -3,7 +3,7 @@
   hosts: 
   gather_facts: no
   tasks:
-    - name: EUpdate&Restart
+    - name: Update&Restart
       ansible.windows.win_powershell:
         script: |
           # COPIER SCRIPT CI-DESSOUS
