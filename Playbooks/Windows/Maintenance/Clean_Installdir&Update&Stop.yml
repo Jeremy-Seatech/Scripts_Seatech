@@ -6,6 +6,7 @@
     - name: Clean_installdir&Stop
       ansible.windows.win_powershell:
         script: |
+          # COPIER SCRIPT CI-DESSOUS
           ################ Suppression du dossier C:\install ################
 
         $folderPath = "C:\install"
