@@ -1,6 +1,6 @@
 ---
 - name: Clean_installdir&Stop
-  hosts: windows
+  hosts: 
   gather_facts: no
   tasks:
     - name: Clean_installdir&Stop
