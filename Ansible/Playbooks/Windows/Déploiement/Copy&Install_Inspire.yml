@@ -1,9 +1,9 @@
 ---
-- name: Exécuter le nettoyage de disque
+- name: Copy&Install_Inspire
   hosts: 
   gather_facts: no
   tasks:
-    - name: Exécuter le nettoyage de disque
+    - name: Copy&Install_Inspire
       ansible.windows.win_powershell:
         script: |
           # COPIER SCRIPT CI-DESSOUS
