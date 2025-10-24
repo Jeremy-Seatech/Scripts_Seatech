@@ -5,7 +5,8 @@
   tasks:
     - name: Supprimer les profils locaux issus du domaine "CAMPUS"
       ansible.windows.win_powershell:
-        script: |# Script PowerShell 64 bits - Supprime les profils locaux issus du domaine "CAMPUS"
+        script:
+        |# Script PowerShell 64 bits - Supprime les profils locaux issus du domaine "CAMPUS"
 # À exécuter en tant qu'administrateur
 
 # Remplace cette valeur par le SID racine trouvé à l'étape précédente
