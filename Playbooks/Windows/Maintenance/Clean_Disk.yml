@@ -1,9 +1,9 @@
 ---
-- name: Exécuter le nettoyage de disque via PowerShell
-  hosts: M011
+- name: Exécuter le nettoyage de disque
+  hosts: 
   gather_facts: no
   tasks:
-    - name: Exécuter le nettoyage de disque silencieusement
+    - name: Exécuter le nettoyage de disque
       ansible.windows.win_powershell:
         script: |
           $cleanmgr = "cleanmgr.exe"
