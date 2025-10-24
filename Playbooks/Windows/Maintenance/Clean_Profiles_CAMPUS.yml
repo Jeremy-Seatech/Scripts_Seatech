@@ -6,6 +6,7 @@
     - name: Exécuter le nettoyage de disque
       ansible.windows.win_powershell:
         script: |
+          # COPIER SCRIPT CI-DESSOUS
           # Script PowerShell 64 bits - Supprime les profils locaux issus du domaine "CAMPUS"
           # À exécuter en tant qu'administrateur
 
