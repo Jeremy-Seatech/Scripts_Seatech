@@ -6,6 +6,7 @@
     - name: Exécuter le nettoyage de disque
       ansible.windows.win_powershell:
         script: |
+          # COPIER SCRIPT CI-DESSOUS
           $cleanmgr = "cleanmgr.exe"
           $args = "/sagerun:1"
           
