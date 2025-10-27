@@ -1,5 +1,6 @@
 ---
 - name: Exécuter le nettoyage de disque
+  hosts: 
   gather_facts: no
   tasks:
     - name: Exécuter le nettoyage de disque
