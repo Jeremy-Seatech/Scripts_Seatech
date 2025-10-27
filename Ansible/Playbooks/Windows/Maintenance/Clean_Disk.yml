@@ -1,6 +1,6 @@
 ---
 - name: Exécuter le nettoyage de disque
-  hosts: M011
+  hosts: windows
   gather_facts: no
   tasks:
     - name: Exécuter le nettoyage de disque
