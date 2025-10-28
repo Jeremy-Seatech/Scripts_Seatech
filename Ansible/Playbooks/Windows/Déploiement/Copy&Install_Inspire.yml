@@ -1,6 +1,6 @@
 ---
 - name: Copy&Install_Inspire
-  hosts: 
+  hosts: all
   gather_facts: no
   tasks:
     - name: Copy&Install_Inspire
