@@ -1,9 +1,9 @@
 ---
-- name: Clean_installdir&Stop
+- name: Clean_installdir
   hosts: all
   gather_facts: no
   tasks:
-    - name: Clean_installdir&Stop
+    - name: Clean_installdir
       ansible.windows.win_powershell:
         script: |
           # COPIER SCRIPT CI-DESSOUS
