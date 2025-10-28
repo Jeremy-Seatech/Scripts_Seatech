@@ -1,6 +1,6 @@
 ---
 - name: Update&Restart
-  hosts: 
+  hosts: all
   gather_facts: no
   tasks:
     - name: Update&Restart
