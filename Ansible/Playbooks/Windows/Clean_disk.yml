@@ -20,25 +20,14 @@
     # Ajoutez votre code PowerShell ici
     # ========================================
 
-    - name: Exécuter votre code PowerShell personnalisé
+    - name: Clean_disk
       ansible.windows.win_shell: |
-        # AJOUTEZ VOTRE CODE POWERSHELL ICI
-        # Exemple simple:
-        $computerName = $env:COMPUTERNAME
-        $currentDate = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
-
-        Write-Host "Machine: $computerName"
-        Write-Host "Date: $currentDate"
-        Write-Host "Utilisateur: $env:USERNAME"
-
-        # Vous pouvez ajouter n'importe quel code PowerShell ici
-        # Par exemple:
-        # - Installer des logiciels
-        # - Modifier la configuration
-        # - Créer des comptes utilisateurs
-        # - Nettoyer des fichiers
-        # - Déployer des scripts
-        # etc.
+        $cleanmgr = "cleanmgr.exe"
+          $args = "/sagerun:1"
+          
+          Start-Process -FilePath $cleanmgr -ArgumentList $args -WindowStyle Hidden -Wait
+          
+          Write-Host "Le nettoyage de disque a été effectué avec succès."
 
       register: resultat_custom
 
