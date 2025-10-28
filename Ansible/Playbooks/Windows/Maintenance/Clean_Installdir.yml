@@ -3,7 +3,7 @@
 
 - name: Exécution de commandes PowerShell sur les machines Windows
   hosts: all
-  gather_facts:yes
+  gather_facts: yes
 
   tasks:
     - name: Information de début
