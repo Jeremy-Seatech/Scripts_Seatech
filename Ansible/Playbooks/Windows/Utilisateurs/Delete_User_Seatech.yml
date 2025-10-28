@@ -1,0 +1,9 @@
+---
+- name: Supprimer l'utilisateur seatech sur Windows
+  hosts: all
+  gather_facts: no
+  tasks:
+    - name: Suppression du compte local seatech
+      ansible.windows.win_user:
+        name: seatech
+        state: absent

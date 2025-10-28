@@ -1,15 +1,28 @@
 ---
-- name: Clean_installdir
+# Playbook pour exécuter du code PowerShell sur les machines Windows
+
+- name: Exécution de commandes PowerShell sur les machines Windows
   hosts: all
   gather_facts: no
-  tasks:
-    - name: Clean_installdir
-      ansible.windows.win_powershell:
-        script: |
-          # COPIER SCRIPT CI-DESSOUS
-          ################ Suppression du dossier C:\install ################
 
-          $folderPath = "C:\install"
+  tasks:
+    - name: Information de début
+      ansible.windows.win_shell: |
+        Write-Host "Début de l'exécution sur $(hostname)"
+      register: debut
+
+    - name: Afficher le résultat
+      debug:
+        var: debut.stdout_lines
+
+    # ========================================
+    # SECTION À PERSONNALISER
+    # Ajoutez votre code PowerShell ici
+    # ========================================
+
+    - name: Clean_Installdir
+      ansible.windows.win_shell: |
+        $folderPath = "C:\install"
   
           # VÃ©rifie si le dossier existe
           if (Test-Path $folderPath) {
@@ -19,3 +32,22 @@
           } else {
               Write-Host "Le dossier $folderPath n'existe pas."
           }
+
+      register: resultat_custom
+
+    - name: Afficher les résultats de votre script
+      debug:
+        var: resultat_custom.stdout_lines
+
+    # ========================================
+    # FIN DE LA SECTION À PERSONNALISER
+    # ========================================
+
+    - name: Information de fin
+      ansible.windows.win_shell: |
+        Write-Host "Fin de l'exécution sur $(hostname)"
+      register: fin
+
+    - name: Afficher le message de fin
+      debug:
+        var: fin.stdout_lines

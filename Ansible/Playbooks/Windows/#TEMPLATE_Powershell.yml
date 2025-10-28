@@ -1,7 +1,6 @@
 ---
 # Playbook pour exécuter du code PowerShell sur les machines Windows
 
-
 - name: Exécution de commandes PowerShell sur les machines Windows
   hosts: all
   gather_facts: yes
