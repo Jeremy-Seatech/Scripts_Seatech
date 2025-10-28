@@ -1,0 +1,60 @@
+---
+# Playbook pour exécuter du code PowerShell sur les machines Windows
+
+- name: Exécution de commandes PowerShell sur les machines Windows
+  hosts: all
+  gather_facts: yes
+
+  tasks:
+    - name: Information de début
+      ansible.windows.win_shell: |
+        Write-Host "Début de l'exécution sur $(hostname)"
+      register: debut
+
+    - name: Afficher le résultat
+      debug:
+        var: debut.stdout_lines
+
+    # ========================================
+    # SECTION À PERSONNALISER
+    # Ajoutez votre code PowerShell ici
+    # ========================================
+
+    - name: Exécuter votre code PowerShell personnalisé
+      ansible.windows.win_shell: |
+        # AJOUTEZ VOTRE CODE POWERSHELL ICI
+        # Exemple simple:
+        $computerName = $env:COMPUTERNAME
+        $currentDate = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+
+        Write-Host "Machine: $computerName"
+        Write-Host "Date: $currentDate"
+        Write-Host "Utilisateur: $env:USERNAME"
+
+        # Vous pouvez ajouter n'importe quel code PowerShell ici
+        # Par exemple:
+        # - Installer des logiciels
+        # - Modifier la configuration
+        # - Créer des comptes utilisateurs
+        # - Nettoyer des fichiers
+        # - Déployer des scripts
+        # etc.
+
+      register: resultat_custom
+
+    - name: Afficher les résultats de votre script
+      debug:
+        var: resultat_custom.stdout_lines
+
+    # ========================================
+    # FIN DE LA SECTION À PERSONNALISER
+    # ========================================
+
+    - name: Information de fin
+      ansible.windows.win_shell: |
+        Write-Host "Fin de l'exécution sur $(hostname)"
+      register: fin
+
+    - name: Afficher le message de fin
+      debug:
+        var: fin.stdout_lines
