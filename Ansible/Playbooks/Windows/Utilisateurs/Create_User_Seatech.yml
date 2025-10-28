@@ -1,9 +1,15 @@
 ---
-- name: Supprimer l'utilisateur seatech sur Windows
+- name: Créer l'utilisateur seatech sur Windows
   hosts: all
   gather_facts: no
   tasks:
-    - name: Suppression du compte local seatech
+    - name: Création du compte local seatech
       ansible.windows.win_user:
         name: seatech
-        state: absent
+        password: seatech
+        groups:
+          - Utilisateurs
+        description: "Compte seatech local créé par Ansible"
+        update_password: on_create
+        password_expired: false
+        state: present
