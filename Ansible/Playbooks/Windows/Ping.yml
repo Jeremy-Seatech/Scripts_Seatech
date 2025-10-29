@@ -1,5 +1,4 @@
 ---
-
 - name: Vérifier l'état des machines Windows en salle TP
   hosts: all
   gather_facts: yes
