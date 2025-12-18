@@ -3,8 +3,8 @@
 $destinationFolder = "C:\install"
 
 #EDIT#
-$url = "ftp://10.100.1.109:21/nvidia.zip"
-$zipFile = "$destinationFolder\nvidia.zip"
+$url = "ftp://10.100.1.109:21/FLOW-3D.zip"
+$zipFile = "$destinationFolder\FLOW-3D.zip"
 #EDIT#
 
 # Créer le dossier de destination s'il n'existe pas déjà
@@ -63,7 +63,6 @@ try {
 ################ Installation silencieuse => EDIT "setup.exe -silent" ################
 
 #EDIT
-c:\install\581.42-quadro-rtx-desktop-notebook-win10-win11-64bit-international-dch-whql.exe -s
+Start-Process "C:\install\FLOW-3D_HYDRO_2025R1_Update1.exe" -Wait
+Start-Process "C:\install\FLOW-3D_POST_2025R1.exe" -Wait
 #EDIT
-
-
