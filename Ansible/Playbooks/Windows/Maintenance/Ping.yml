@@ -1,7 +1,7 @@
 ---
 - name: Vérifier l'état des machines Windows en salle TP
   hosts: all
-  gather_facts: no
+  gather_facts: yes
   tasks:
     - name: Ping des machines Windows
       win_ping:
