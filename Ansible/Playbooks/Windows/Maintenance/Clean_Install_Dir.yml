@@ -24,14 +24,14 @@
       ansible.windows.win_shell: |
         $folderPath = "C:\install"
   
-          # VÃ©rifie si le dossier existe
-          if (Test-Path $folderPath) {
-              # Supprime le dossier et son contenu
-              Remove-Item -Path $folderPath -Recurse -Force
-              Write-Host "Le dossier $folderPath a Ã©tÃ© supprimÃ© avec succÃ¨s."
-          } else {
-              Write-Host "Le dossier $folderPath n'existe pas."
-          }
+        # VÃ©rifie si le dossier existe
+        if (Test-Path $folderPath) {
+            # Supprime le dossier et son contenu
+            Remove-Item -Path $folderPath -Recurse -Force
+            Write-Host "Le dossier $folderPath a Ã©tÃ© supprimÃ© avec succÃ¨s."
+        } else {
+            Write-Host "Le dossier $folderPath n'existe pas."
+        }
 
       register: resultat_custom
 
