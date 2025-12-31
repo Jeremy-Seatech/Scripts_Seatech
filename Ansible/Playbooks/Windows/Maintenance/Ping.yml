@@ -6,6 +6,6 @@
     - name: Ping des machines Windows
       win_ping:
 
-    #- name: Afficher un message avec le nom et version Windows
-     # ansible.builtin.debug:
-      #  msg: "Machine {{ inventory_hostname }} - OS : {{ ansible_facts['os_name'] }} version {{ ansible_facts['os_version'] }}"
+    - name: Afficher un message avec le nom et version Windows
+      ansible.builtin.debug:
+        msg: "Machine {{ inventory_hostname }} - OS : {{ ansible_facts['os_name'] }} version {{ ansible_facts['os_version'] }}"
