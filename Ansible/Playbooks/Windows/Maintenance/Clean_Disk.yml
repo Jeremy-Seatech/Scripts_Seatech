@@ -23,11 +23,11 @@
     - name: Clean_disk
       ansible.windows.win_shell: |
         $cleanmgr = "cleanmgr.exe"
-          $args = "/sagerun:1"
+        $args = "/sagerun:1"
           
-          Start-Process -FilePath $cleanmgr -ArgumentList $args -WindowStyle Hidden -Wait
+        Start-Process -FilePath $cleanmgr -ArgumentList $args -WindowStyle Hidden -Wait
           
-          Write-Host "Le nettoyage de disque a été effectué avec succès."
+        Write-Host "Le nettoyage de disque a été effectué avec succès."
 
       register: resultat_custom
 
